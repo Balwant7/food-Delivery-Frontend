@@ -8,7 +8,7 @@ const Home = () => {
   const [selecetdmeal, setSelectedMeal] = useState("all");
   console.log(selecetdmeal);
   return (
-    <div className="m-auto w-[80%]">
+    <div className="m-auto w-[85%] bg-slate-50">
       <Navbar />
       <Hero />
       <ExploreMenu

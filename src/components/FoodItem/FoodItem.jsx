@@ -1,22 +1,33 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
+import { Storecontext } from "../../context/Storecontext";
 
 // eslint-disable-next-line react/prop-types
 const FoodItem = ({ id, name, description, price, image }) => {
   const [itemCount, setItemCount] = useState(0);
+  const { cartItems, setCartItems, addToCart, removeFromCart } =
+    useContext(Storecontext);
 
   return (
     <div
       id="food_item"
-      className="flex flex-col w-full rounded-2xl shadow-sm hover:shadow-lg p-4 transition-all duration-300 cursor-pointer"
+      className="flex flex-col w-full rounded-2xl shadow-sm hover:shadow-lg p-2 transition-all duration-300 cursor-pointer"
     >
-      <div id="fooditem_imagecontainer" className="relative">
-        <img src={image} alt={name} className="rounded-t-2xl w-full" />
-        {!itemCount ? (
+      <div
+        id="fooditem_imagecontainer"
+        className="relative overflow-hidden rounded-t-2xl"
+      >
+        <img
+          id="fooditem_cartimg"
+          src={image}
+          alt={name}
+          className="rounded-t-2xl w-full "
+        />
+        {!cartItems[id] ? (
           <img
             className="absolute w-9 right-3 bottom-3 cursor-pointer hover:scale-[1.1] transition-all duration-150 rounded-full"
             id="add"
-            onClick={() => setItemCount(itemCount + 1)}
+            onClick={() => addToCart(id)}
             src={assets.add_icon_white}
           />
         ) : (
@@ -26,14 +37,14 @@ const FoodItem = ({ id, name, description, price, image }) => {
           >
             <img
               className="w-9"
-              onClick={() => setItemCount((prev) => prev - 1)}
+              onClick={() => removeFromCart(id)}
               src={assets.remove_icon_red}
               alt=""
             />
-            <p className="w-3 mx-1">{itemCount}</p>
+            <p className="w-3 mx-1">{cartItems[id]}</p>
             <img
               className="w-9"
-              onClick={() => setItemCount((prev) => prev + 1)}
+              onClick={() => addToCart(id)}
               src={assets.add_icon_green}
               alt=""
             />
