@@ -10,16 +10,18 @@ const FoodDisplay = ({ selecetdmeal }) => {
       <h2 className="text-3xl font-semibold">Top foods near you</h2>
       <div id="food_display_list" className="grid grid-cols-4 gap-6">
         {food_list.map((item, index) => {
-          return (
-            <FoodItem
-              key={index}
-              id={item._id}
-              name={item.name}
-              description={item.description}
-              price={item.price}
-              image={item.image}
-            />
-          );
+          if (selecetdmeal === "all" || selecetdmeal === item.category) {
+            return (
+              <FoodItem
+                key={index}
+                id={item._id}
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                image={item.image}
+              />
+            );
+          }
         })}
       </div>
     </div>
